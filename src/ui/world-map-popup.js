@@ -3,7 +3,7 @@
  * @description Full-screen world map popup overlay.
  */
 
-import { createMapInstance, destroyMapInstance } from './map-renderer.js';
+import { createMapInstance, destroyMapInstance } from '../map/map-renderer.js';
 
 let currentCyInstance = null;
 
