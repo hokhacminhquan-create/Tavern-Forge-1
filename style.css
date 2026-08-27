@@ -3,16 +3,16 @@
  */
 
 .tavern-forge {
-  /* Theme colors - Classic RPG brown-gold */
-  --tf-bg-primary: #2a1f14;        /* dark brown background */
-  --tf-bg-secondary: #3d2e1f;      /* slightly lighter brown */
-  --tf-bg-tertiary: #4a3828;        /* card/panel backgrounds */
-  --tf-border: #8b7355;             /* gold-brown border */
+  /* Map to SillyTavern theme variables for native consistency */
+  --tf-bg-primary: var(--SmartThemeWindowColor, #2a1f14);
+  --tf-bg-secondary: var(--SmartThemeBlurTintColor, #3d2e1f);
+  --tf-bg-tertiary: var(--SmartThemeQuoteColor, #4a3828);
+  --tf-border: var(--SmartThemeBorderColor, #8b7355);
   --tf-border-accent: #c9a96e;      /* bright gold accent border */
-  --tf-text-primary: #e8d5b7;       /* warm cream text */
-  --tf-text-secondary: #b09a7a;     /* muted text */
-  --tf-text-accent: #ffd700;        /* gold accent text */
-  --tf-accent: #c9a96e;             /* gold accent */
+  --tf-text-primary: var(--SmartThemeBodyColor, #e8d5b7);
+  --tf-text-secondary: var(--SmartThemeQuoteColor, #b09a7a); /* using quote for muted text */
+  --tf-text-accent: var(--SmartThemeHighlightColor, #ffd700);
+  --tf-accent: var(--SmartThemeHighlightColor, #c9a96e);
   
   /* Resource bar colors */
   --tf-hp-color: #e74c3c;
@@ -28,7 +28,7 @@
   
   /* Bar styling */
   --tf-bar-height: 20px;
-  --tf-bar-bg: #1a1209;
+  --tf-bar-bg: rgba(0, 0, 0, 0.4);
   --tf-bar-border-radius: 4px;
   
   /* Panel sizing */
@@ -48,10 +48,16 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    z-index: 1000;
+    z-index: 50000; /* Higher than chat UI */
+    backdrop-filter: blur(5px);
 }
 
 .tf-panel--right-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
     width: var(--tf-panel-width);
     min-width: var(--tf-panel-min-width);
     max-width: var(--tf-panel-max-width);
@@ -59,6 +65,11 @@
 }
 
 .tf-panel--left-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
     width: var(--tf-panel-width);
     min-width: var(--tf-panel-min-width);
     max-width: var(--tf-panel-max-width);
@@ -66,7 +77,7 @@
 }
 
 .tf-panel--floating {
-    position: absolute;
+    position: fixed;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     border: 2px solid var(--tf-border-accent);
@@ -93,6 +104,27 @@
     background-color: var(--tf-bg-secondary);
     border-bottom: 1px solid var(--tf-border);
     cursor: grab;
+}
+
+.tf-panel__controls {
+    display: flex;
+    gap: 4px;
+}
+
+.tf-panel__btn, .tf-btn {
+    background: var(--tf-bg-tertiary);
+    color: var(--tf-text-primary);
+    border: 1px solid var(--tf-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.2s;
+}
+
+.tf-panel__btn:hover, .tf-btn:hover {
+    background: var(--tf-bg-secondary);
+    color: var(--tf-text-accent);
 }
 
 .tf-panel__resize-handle {

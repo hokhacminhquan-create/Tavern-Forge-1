@@ -5,23 +5,36 @@ export function createSettingsUI() {
     const container = $('#extensions_settings');
     if (!container.length || $('#tf-settings-wrapper').length) return;
     
-    const wrapper = $('<div id="tf-settings-wrapper" class="tf-settings"></div>');
-    wrapper.append('<h2>⚒️ Tavern Forge Settings</h2>');
-    
-    // General
-    const general = $('<div class="tf-settings-section"><h3>General</h3></div>');
-    general.append(`
-        <label>Panel Mode: 
-            <select id="tf-setting-panelMode">
-                <option value="RIGHT_SIDEBAR">Right Sidebar</option>
-                <option value="LEFT_SIDEBAR">Left Sidebar</option>
-                <option value="FLOATING">Floating</option>
-            </select>
-        </label>
-        <label><input type="checkbox" id="tf-setting-debugMode"> Enable Debug Mode</label>
+    const wrapper = $(`
+        <div id="tf-settings-wrapper" class="inline-drawer">
+            <div class="inline-drawer-toggle inline-drawer-header">
+                <b>⚒️ Tavern Forge</b>
+                <div class="inline-drawer-icon fa-solid fa-chevron-down down"></div>
+            </div>
+            <div class="inline-drawer-content" style="display: none;">
+                <div class="tf-settings">
+                    <div class="tf-settings-section">
+                        <label>Panel Mode: 
+                            <select id="tf-setting-panelMode" class="text_pole">
+                                <option value="RIGHT_SIDEBAR">Right Sidebar</option>
+                                <option value="LEFT_SIDEBAR">Left Sidebar</option>
+                                <option value="FLOATING">Floating</option>
+                            </select>
+                        </label>
+                        <br><br>
+                        <label><input type="checkbox" id="tf-setting-debugMode"> Enable Debug Mode</label>
+                    </div>
+                </div>
+            </div>
+        </div>
     `);
-    wrapper.append(general);
-    
+
+    // Standard ST toggle logic
+    wrapper.find('.inline-drawer-toggle').on('click', function () {
+        $(this).closest('.inline-drawer').find('.inline-drawer-content').slideToggle('fast');
+        $(this).find('.inline-drawer-icon').toggleClass('down up fa-chevron-down fa-chevron-up');
+    });
+
     // Actions
     wrapper.find('#tf-setting-panelMode').on('change', (e) => {
         updateGlobalSettings('panelMode', $(e.target).val());
