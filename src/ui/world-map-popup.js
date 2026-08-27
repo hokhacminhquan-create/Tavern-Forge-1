@@ -25,10 +25,10 @@ export async function openWorldMapPopup(worldMap, currentLocation, visitedLocati
         display: flex; justify-content: center; align-items: center;
     `;
 
-    overlay.innerHTML = \`
+    overlay.innerHTML = `
         <div class="tf-worldmap-container" style="width: 90%; height: 90%; background: #222; border-radius: 8px; display: flex; flex-direction: column;">
             <div class="tf-worldmap-header" style="padding: 10px; background: #333; display: flex; justify-content: space-between; align-items: center;">
-                <span class="tf-worldmap-title" style="color: white; font-size: 1.2em;">🗺️ World Map: \${worldMap ? worldMap.name : 'Unknown'}</span>
+                <span class="tf-worldmap-title" style="color: white; font-size: 1.2em;">🗺️ World Map: ${worldMap ? worldMap.name : 'Unknown'}</span>
                 <div class="tf-worldmap-controls">
                     <button class="tf-worldmap-btn" data-action="edit">✏️ Edit</button>
                     <button class="tf-worldmap-btn" data-action="regenerate">🔄 Regenerate</button>
@@ -37,7 +37,7 @@ export async function openWorldMapPopup(worldMap, currentLocation, visitedLocati
             </div>
             <div id="tf-worldmap-canvas" style="flex-grow: 1; position: relative;"></div>
         </div>
-    \`;
+    `;
 
     document.body.appendChild(overlay);
 
