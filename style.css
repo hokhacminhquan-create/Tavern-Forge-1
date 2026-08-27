@@ -1,0 +1,830 @@
+/* 
+ * Base Stylesheet for Tavern Forge
+ */
+
+.tavern-forge {
+  /* Theme colors - Classic RPG brown-gold */
+  --tf-bg-primary: #2a1f14;        /* dark brown background */
+  --tf-bg-secondary: #3d2e1f;      /* slightly lighter brown */
+  --tf-bg-tertiary: #4a3828;        /* card/panel backgrounds */
+  --tf-border: #8b7355;             /* gold-brown border */
+  --tf-border-accent: #c9a96e;      /* bright gold accent border */
+  --tf-text-primary: #e8d5b7;       /* warm cream text */
+  --tf-text-secondary: #b09a7a;     /* muted text */
+  --tf-text-accent: #ffd700;        /* gold accent text */
+  --tf-accent: #c9a96e;             /* gold accent */
+  
+  /* Resource bar colors */
+  --tf-hp-color: #e74c3c;
+  --tf-mp-color: #3498db;
+  --tf-stamina-color: #2ecc71;
+  --tf-xp-color: #9b59b6;
+  --tf-shield-color: #00bcd4;
+  --tf-energy-color: #ffc107;
+  --tf-stress-color: #ff9800;
+  --tf-sanity-color: #9b59b6;
+  --tf-supplies-color: #795548;
+  --tf-reputation-color: #ffd700;
+  
+  /* Bar styling */
+  --tf-bar-height: 20px;
+  --tf-bar-bg: #1a1209;
+  --tf-bar-border-radius: 4px;
+  
+  /* Panel sizing */
+  --tf-panel-width: 320px;
+  --tf-panel-min-width: 250px;
+  --tf-panel-max-width: 500px;
+}
+
+/* ==========================================================================
+   Panel Styles
+   ========================================================================== */
+
+.tf-panel {
+    background-color: var(--tf-bg-primary);
+    color: var(--tf-text-primary);
+    border: 1px solid var(--tf-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.tf-panel--right-sidebar {
+    width: var(--tf-panel-width);
+    min-width: var(--tf-panel-min-width);
+    max-width: var(--tf-panel-max-width);
+    border-left: 2px solid var(--tf-border-accent);
+}
+
+.tf-panel--left-sidebar {
+    width: var(--tf-panel-width);
+    min-width: var(--tf-panel-min-width);
+    max-width: var(--tf-panel-max-width);
+    border-right: 2px solid var(--tf-border-accent);
+}
+
+.tf-panel--floating {
+    position: absolute;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    border: 2px solid var(--tf-border-accent);
+}
+
+.tf-panel--bubble {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--tf-bg-secondary);
+    border: 2px solid var(--tf-border-accent);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tf-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: var(--tf-bg-secondary);
+    border-bottom: 1px solid var(--tf-border);
+    cursor: grab;
+}
+
+.tf-panel__resize-handle {
+    width: 4px;
+    cursor: col-resize;
+    background-color: var(--tf-border);
+}
+
+.tf-panel__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+/* ==========================================================================
+   Tab Styles
+   ========================================================================== */
+
+.tf-tabs {
+    display: flex;
+    background-color: var(--tf-bg-secondary);
+    border-bottom: 1px solid var(--tf-border);
+}
+
+.tf-tabs__tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--tf-text-secondary);
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tf-tabs__tab:hover {
+    color: var(--tf-text-primary);
+    background-color: var(--tf-bg-tertiary);
+}
+
+.tf-tabs__tab--active {
+    color: var(--tf-text-accent);
+    border-bottom: 2px solid var(--tf-accent);
+    font-weight: bold;
+}
+
+.tf-tabs__content {
+    display: none;
+    padding: 12px;
+}
+
+.tf-tabs__content.active {
+    display: block;
+}
+
+/* ==========================================================================
+   Stats Display
+   ========================================================================== */
+
+.tf-stat-bar {
+    position: relative;
+    height: var(--tf-bar-height);
+    background-color: var(--tf-bar-bg);
+    border-radius: var(--tf-bar-border-radius);
+    border: 1px solid var(--tf-border);
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.tf-stat-bar__fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.tf-stat-bar__label {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    z-index: 1;
+}
+
+.tf-stat-bar__value {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    z-index: 1;
+}
+
+.tf-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.tf-stat-grid__item {
+    background-color: var(--tf-bg-tertiary);
+    border: 1px solid var(--tf-border);
+    border-radius: 4px;
+    padding: 6px;
+    text-align: center;
+}
+
+.tf-stat-grid__label {
+    font-size: 0.7em;
+    color: var(--tf-text-secondary);
+    text-transform: uppercase;
+}
+
+.tf-stat-grid__value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--tf-text-primary);
+}
+
+/* ==========================================================================
+   Character Cards
+   ========================================================================== */
+
+.tf-character-card {
+    background-color: var(--tf-bg-secondary);
+    border: 1px solid var(--tf-border);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.tf-character-card--player {
+    border-color: var(--tf-mp-color);
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.tf-character-card--special {
+    border-color: var(--tf-border-accent);
+    box-shadow: 0 0 5px rgba(201, 169, 110, 0.5);
+}
+
+.tf-character-card--npc {
+    border-color: var(--tf-border);
+}
+
+.tf-character-card__name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--tf-text-accent);
+    margin-bottom: 4px;
+}
+
+.tf-character-card__type-badge {
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 2px 6px;
+    background-color: var(--tf-bg-tertiary);
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.tf-character-card__identity {
+    font-size: 0.9em;
+    color: var(--tf-text-secondary);
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.tf-character-card__section {
+    margin-top: 8px;
+    border-top: 1px solid var(--tf-border);
+    padding-top: 8px;
+}
+
+.tf-character-card__section-header {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--tf-text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ==========================================================================
+   Scene Display (Scene Tab)
+   ========================================================================== */
+
+.tf-scene {
+    background-color: var(--tf-bg-tertiary);
+    border: 1px solid var(--tf-border);
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.tf-scene__location {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--tf-text-accent);
+    text-align: center;
+    margin-bottom: 16px;
+    border-bottom: 1px dashed var(--tf-border);
+    padding-bottom: 8px;
+}
+
+.tf-scene__location-icon {
+    margin-right: 8px;
+}
+
+.tf-scene__characters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tf-scene__char-badge {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: var(--tf-bg-secondary);
+    border: 1px solid var(--tf-border);
+    border-radius: 12px;
+    font-size: 0.85em;
+}
+
+.tf-scene__char-badge--player {
+    border-color: var(--tf-mp-color);
+}
+
+.tf-scene__char-badge--special {
+    border-color: var(--tf-border-accent);
+    color: var(--tf-text-accent);
+}
+
+.tf-scene__char-badge--npc {
+    border-color: var(--tf-border);
+}
+
+.tf-scene__char-badge--enemy {
+    border-color: var(--tf-hp-color);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.tf-scene__char-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 6px;
+    background-color: #ccc;
+}
+
+.tf-scene__char-status.healthy { background-color: var(--tf-stamina-color); }
+.tf-scene__char-status.injured { background-color: var(--tf-stress-color); }
+.tf-scene__char-status.critical { background-color: var(--tf-hp-color); }
+
+.tf-scene__stakes {
+    font-size: 0.9em;
+    color: var(--tf-text-secondary);
+    background-color: var(--tf-bg-secondary);
+    padding: 8px;
+    border-left: 3px solid var(--tf-accent);
+}
+
+/* ==========================================================================
+   Undo Log (Log Tab)
+   ========================================================================== */
+
+.tf-log {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tf-log__entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px;
+    background-color: var(--tf-bg-secondary);
+    border: 1px solid var(--tf-border);
+    border-radius: 4px;
+}
+
+.tf-log__entry--flagged {
+    border-color: var(--tf-stress-color);
+    background-color: rgba(255, 152, 0, 0.1);
+}
+
+.tf-log__entry--undone {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.tf-log__timestamp {
+    font-size: 0.7em;
+    color: var(--tf-text-secondary);
+    min-width: 60px;
+}
+
+.tf-log__change {
+    flex: 1;
+    font-size: 0.9em;
+    margin: 0 10px;
+}
+
+.tf-log__undo-btn {
+    background: none;
+    border: 1px solid var(--tf-border);
+    color: var(--tf-text-primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.tf-log__undo-btn:hover {
+    background-color: var(--tf-bg-tertiary);
+    color: var(--tf-text-accent);
+}
+
+/* ==========================================================================
+   Immersive Visual Components (Pillar 1 templates)
+   ========================================================================== */
+
+.tf-immersive {
+    margin: 1em 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    animation: tf-fadeIn 0.5s ease-in-out;
+}
+
+/* Book / Tome */
+.tf-immersive--book {
+    background-color: #f4e4c1;
+    color: #3b2f2f;
+    font-family: Georgia, serif;
+    padding: 20px;
+    border: 2px solid #8b7355;
+    border-radius: 4px;
+    box-shadow: inset 0 0 20px rgba(139, 69, 19, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+.tf-immersive--book::before {
+    content: "📖";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 1.2em;
+}
+
+/* Scroll */
+.tf-immersive--scroll {
+    background-color: #fdf5e6;
+    color: #4a3b32;
+    padding: 25px 20px;
+    border-top: 8px solid #8b7355;
+    border-bottom: 8px solid #8b7355;
+    border-radius: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    font-family: 'Palatino Linotype', serif;
+}
+
+/* Letter */
+.tf-immersive--letter {
+    background-color: #fffaf0;
+    color: #2c2c2c;
+    padding: 15px;
+    font-family: 'Brush Script MT', cursive, serif;
+    transform: rotate(-1deg);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border: 1px solid #e0d8c0;
+}
+
+/* System Notification */
+.tf-immersive--system {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    border-left: 4px solid #00ffcc;
+    padding: 12px;
+    font-family: monospace;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+}
+
+/* Combat Log */
+.tf-immersive--combat {
+    background-color: #1a1a1a;
+    color: #ddd;
+    border: 1px solid #444;
+    padding: 10px;
+    font-family: monospace;
+    border-radius: 4px;
+}
+
+/* Shop Menu */
+.tf-immersive--shop {
+    background-color: var(--tf-bg-secondary);
+    border: 2px solid var(--tf-border-accent);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+/* Dialogue Box */
+.tf-immersive--dialogue {
+    background-color: rgba(20, 20, 30, 0.85);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+    margin-top: 1.5em;
+    color: #fff;
+}
+
+/* Wanted Poster */
+.tf-immersive--poster {
+    background: linear-gradient(135deg, #e3cfa1 0%, #d4ba8a 100%);
+    color: #222;
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed #6b5133;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    font-family: Impact, sans-serif;
+}
+
+/* Skill Check */
+.tf-immersive--check {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: var(--tf-bg-tertiary);
+    border: 1px solid var(--tf-border);
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Status Change */
+.tf-immersive--status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    background-color: var(--tf-bg-secondary);
+    border: 1px solid var(--tf-border);
+}
+
+/* Area Transition */
+.tf-immersive--area {
+    background: linear-gradient(to right, transparent, rgba(201, 169, 110, 0.2), transparent);
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--tf-border-accent);
+    border-bottom: 1px solid var(--tf-border-accent);
+    margin: 2em 0;
+}
+
+/* Achievement */
+.tf-immersive--achievement {
+    background: linear-gradient(135deg, #2a2a2a, #3d3d3d);
+    border: 1px solid #ffd700;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Inscription */
+.tf-immersive--inscription {
+    background: linear-gradient(to bottom, #555, #333);
+    color: #999;
+    padding: 20px;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: -1px -1px 1px #000, 1px 1px 1px #777;
+    border: 2px solid #222;
+    border-radius: 4px;
+}
+
+/* Sign */
+.tf-immersive--sign {
+    background: repeating-linear-gradient(0deg, #5c4033, #5c4033 20px, #4a332a 20px, #4a332a 40px);
+    color: #eee;
+    padding: 15px;
+    text-align: center;
+    border: 4px solid #3e2723;
+    border-radius: 8px;
+    font-family: sans-serif;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
+}
+
+/* Recipe */
+.tf-immersive--recipe {
+    background-color: #fcf4e8;
+    color: #443;
+    border: 1px solid #c8b699;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: serif;
+}
+
+/* ==========================================================================
+   RPG Callout Styling
+   ========================================================================== */
+
+.tf-rpg-callout {
+    font-size: 0.85em;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tf-rpg-callout--damage { color: #ff6b6b; border: 1px solid rgba(255, 107, 107, 0.3); }
+.tf-rpg-callout--heal { color: #51cf66; border: 1px solid rgba(81, 207, 102, 0.3); }
+.tf-rpg-callout--xp { color: #cc5de8; border: 1px solid rgba(204, 93, 232, 0.3); }
+.tf-rpg-callout--levelup { 
+    color: #fcc419; 
+    border: 1px solid rgba(252, 196, 25, 0.5);
+    font-size: 1.1em;
+    animation: tf-pulse 2s infinite;
+}
+.tf-rpg-callout--skill { color: #339af0; border: 1px solid rgba(51, 154, 240, 0.3); }
+
+/* ==========================================================================
+   Notifications / Toasts
+   ========================================================================== */
+
+.tf-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 9999;
+    animation: tf-slideIn 0.3s ease-out;
+}
+
+.tf-toast--warning { background-color: #f39c12; border-left: 4px solid #e67e22; }
+.tf-toast--success { background-color: #27ae60; border-left: 4px solid #2ecc71; }
+.tf-toast--info { background-color: #2980b9; border-left: 4px solid #3498db; }
+
+/* ==========================================================================
+   World Map Popup
+   ========================================================================== */
+
+.tf-worldmap-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tf-worldmap-container {
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--tf-bg-primary);
+    border: 2px solid var(--tf-border-accent);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tf-worldmap-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--tf-bg-secondary);
+    border: 1px solid var(--tf-border);
+    color: var(--tf-text-primary);
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.tf-worldmap-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* ==========================================================================
+   Settings Panel
+   ========================================================================== */
+
+.tf-settings {
+    padding: 15px;
+    background-color: var(--tf-bg-primary);
+    color: var(--tf-text-primary);
+}
+
+.tf-settings__section {
+    margin-bottom: 20px;
+    border: 1px solid var(--tf-border);
+    border-radius: 6px;
+    padding: 12px;
+    background-color: var(--tf-bg-secondary);
+}
+
+.tf-settings__section-title {
+    font-size: 1.2em;
+    color: var(--tf-text-accent);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--tf-border);
+    padding-bottom: 4px;
+}
+
+.tf-settings__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tf-settings__color-picker {
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+.tf-settings__select,
+.tf-settings__input {
+    background-color: var(--tf-bg-tertiary);
+    color: var(--tf-text-primary);
+    border: 1px solid var(--tf-border);
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.tf-settings__toggle {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background-color: var(--tf-bg-tertiary);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid var(--tf-border);
+}
+.tf-settings__toggle:checked {
+    background-color: var(--tf-accent);
+}
+.tf-settings__toggle::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    top: 1px;
+    left: 2px;
+    background-color: #fff;
+    transition: 0.2s;
+}
+.tf-settings__toggle:checked::before {
+    transform: translateX(20px);
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.tf-hidden { display: none !important; }
+.tf-flex-row { display: flex; flex-direction: row; gap: 8px; }
+.tf-flex-col { display: flex; flex-direction: column; gap: 8px; }
+
+.tf-scroll {
+    overflow-y: auto;
+}
+.tf-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.tf-scroll::-webkit-scrollbar-track {
+    background: var(--tf-bg-primary);
+}
+.tf-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--tf-border);
+    border-radius: 4px;
+}
+
+.tf-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes tf-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes tf-slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes tf-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tf-glow {
+    0% { box-shadow: 0 0 5px var(--tf-accent); }
+    50% { box-shadow: 0 0 15px var(--tf-accent); }
+    100% { box-shadow: 0 0 5px var(--tf-accent); }
+}
