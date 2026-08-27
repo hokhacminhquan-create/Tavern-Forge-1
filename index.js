@@ -9,6 +9,7 @@ import { injectPrompt, clearPrompt } from './src/core/prompt-engine.js';
 import { createPanel } from './src/ui/panel.js';
 import { registerAllTemplates } from './src/visuals/template-engine.js';
 import { registerAllCommands, unregisterAllCommands } from './src/utils/slash-commands.js';
+import { createSettingsUI } from './src/ui/settings-ui.js';
 import { log } from './src/utils/helpers.js';
 
 /**
@@ -43,6 +44,7 @@ export function onActivate() {
         registerAllTemplates();
         registerAllCommands();
         createPanel();
+        createSettingsUI();
         
         const context = getContext();
         // If there's an active chat, initialize chat state

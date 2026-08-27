@@ -3,9 +3,9 @@ import { createBarColorPickers, applyColors } from './color-picker.js';
 
 export function createSettingsUI() {
     const container = $('#extensions_settings');
-    if (!container.length) return;
+    if (!container.length || $('#tf-settings-wrapper').length) return;
     
-    const wrapper = $('<div class="tf-settings"></div>');
+    const wrapper = $('<div id="tf-settings-wrapper" class="tf-settings"></div>');
     wrapper.append('<h2>⚒️ Tavern Forge Settings</h2>');
     
     // General
@@ -24,15 +24,11 @@ export function createSettingsUI() {
     
     // Actions
     wrapper.find('#tf-setting-panelMode').on('change', (e) => {
-        const settings = getGlobalSettings();
-        settings.panelMode = $(e.target).val();
-        updateGlobalSettings(settings);
+        updateGlobalSettings('panelMode', $(e.target).val());
     });
 
     wrapper.find('#tf-setting-debugMode').on('change', (e) => {
-        const settings = getGlobalSettings();
-        settings.debugMode = $(e.target).is(':checked');
-        updateGlobalSettings(settings);
+        updateGlobalSettings('debugMode', $(e.target).is(':checked'));
     });
     
     container.append(wrapper);
